@@ -13,8 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\EntityFramework-Samples.Client.csproj" />
-    <ProjectReference Include="..\Shared\EntityFramework-Samples.Shared.csproj" />
+    <ProjectReference Include="..\..\EntityFramework.Samples.Data\EntityFramework.Samples.Data.csproj" />
+    <ProjectReference Include="..\Client\EntityFramework.Samples.Client.csproj" />
+    <ProjectReference Include="..\Shared\EntityFramework.Samples.Shared.csproj" />
   </ItemGroup>
 
 </Project>

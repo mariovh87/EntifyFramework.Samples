@@ -1,4 +1,4 @@
-using EntityFramework_Samples.Client;
+using EntityFramework.Samples.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
