@@ -1,9 +1,13 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using EntityFramework.Samples.Data.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<ContosoPizzaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ContosoPizza")));
 
 var app = builder.Build();
 

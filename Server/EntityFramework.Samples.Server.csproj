@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>EntityFramework-Samples.Server</RootNamespace>
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
+    <UserSecretsId>f1f7592f-ef99-408b-a217-e8ba57b245e2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EntityFramework.Samples.Data\EntityFramework.Samples.Data.csproj" />
     <ProjectReference Include="..\Client\EntityFramework.Samples.Client.csproj" />
+    <ProjectReference Include="..\Data\EntityFramework.Samples.Data.csproj" />
     <ProjectReference Include="..\Shared\EntityFramework.Samples.Shared.csproj" />
   </ItemGroup>
 
