@@ -5,6 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramework.Samples.Data.Data;
 
+/// <summary>
+/// Generated with the following command:
+///  dotnet ef dbcontext scaffold "Server=(LocalDb)\MSSQLLocalDB;Initial Catalog=ctms;Integrated Security=false" Microsoft.EntityFrameworkCore.SqlServer --context-dir Data --output-dir Models/CTMS
+/// </summary>
 public partial class CtmsContext : DbContext
 {
     public CtmsContext()
