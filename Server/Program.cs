@@ -1,4 +1,5 @@
 using EntityFramework.Samples.Data.Data;
+using EntityFramework.Samples.Data.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ContosoPizzaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ContosoPizza")));
+    options
+        .UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("ContosoPizza")));
+
+//using database context pooling
+builder.Services.AddDbContextPool<ContosoPizzaContext>(options =>
+    options
+        .UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("ContosoPizza")));
+
+
+DbInitializer.Initialize(builder.Services.BuildServiceProvider().GetRequiredService<ContosoPizzaContext>());
 
 var app = builder.Build();
 

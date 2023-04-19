@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ namespace EntityFramework.Samples.Data.Models.ContosoPizza
         public string? Address { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }
-        public ICollection<Order> Orders { get; set; } = null!;
+
+        //Virtual to EF be able to create a proxy and lazy load
+        [InverseProperty("Customer")]
+        public virtual ICollection<Order> Orders { get; set; } = null!;
     }
 }
