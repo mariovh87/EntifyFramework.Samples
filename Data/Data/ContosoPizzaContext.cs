@@ -1,4 +1,5 @@
-﻿using EntityFramework.Samples.Data.Models.ContosoPizza;
+﻿using EntityFramework.Samples.Data.Extensions;
+using EntityFramework.Samples.Data.Models.ContosoPizza;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramework.Samples.Data.Data
@@ -19,6 +20,9 @@ namespace EntityFramework.Samples.Data.Data
         {
             modelBuilder.Entity<OrderDetail>()
                 .HasKey(od => new { od.OrderId, od.ProductId });
+
+            // Cargando datos iniciales
+            modelBuilder.Seed();
         }
 
     }
