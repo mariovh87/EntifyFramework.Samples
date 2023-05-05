@@ -1,5 +1,5 @@
 ﻿using FirstEFCoreConsoleApp;
-using FirstEFCoreConsoleApp.Model;
+
 using Microsoft.EntityFrameworkCore;
 
 await using var context = new LibraryContext();

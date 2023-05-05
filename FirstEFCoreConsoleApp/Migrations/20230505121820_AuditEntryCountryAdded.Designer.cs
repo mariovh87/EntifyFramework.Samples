@@ -3,6 +3,7 @@ using System;
 using FirstEFCoreConsoleApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstEFCoreConsoleApp.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20230505121820_AuditEntryCountryAdded")]
+    partial class AuditEntryCountryAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -119,72 +122,7 @@ namespace FirstEFCoreConsoleApp.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("FirstEFCoreConsoleApp.Model.PhisicalLibrary", b =>
-                {
-                    b.Property<int>("PhisicalLibraryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PhisicalLibraryId");
-
-                    b.ToTable("PhisicalLibraries", null, t =>
-                        {
-                            t.ExcludeFromMigrations();
-                        });
-                });
-
-            modelBuilder.Entity("FirstEFCoreConsoleApp.Model.ProliphicAuthor", b =>
-                {
-                    b.Property<int>("ProliphicAuthorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BookCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ProliphicAuthorId");
-
-                    b.ToTable("ProliphicAuthors");
-                });
-
-            modelBuilder.Entity("FirstEFCoreConsoleApp.Model.RatedBook", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Starts")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("MostHighlyRatedBooks", "dbo");
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("FirstEFCoreConsoleApp.Model.AuditEntry", b =>
