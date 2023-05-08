@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstEFCoreConsoleApp.Model
 {
+    [Comment("Tabla para almacenar los libros existentes en la biblioteca")]
     public partial class Book
     {
         public int BookId { get; set; }

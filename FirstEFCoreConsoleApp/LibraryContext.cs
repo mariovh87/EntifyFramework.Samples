@@ -34,9 +34,14 @@ namespace FirstEFCoreConsoleApp
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<PhisicalLibrary>()
-                .ToTable("PhisicalLibraries", t => t.ExcludeFromMigrations());
+            var phisicalLibrary = modelBuilder.Entity<PhisicalLibrary>();
+            phisicalLibrary
+                .Ignore(p=>p.LoadeDate)
+                .Property(p => p.Name).HasColumnName("LibraryName")
+                .HasColumnType("nvarchar(200)");
+            phisicalLibrary.ToTable("PhisicalLibraries", t =>
+                    t.ExcludeFromMigrations()
+                        .HasComment("Tabla para almacenar las bibliotecas físicas"));
 
             //Create View in Db
             modelBuilder.Entity<RatedBook>()
