@@ -9,8 +9,9 @@ namespace FirstEFCoreConsoleApp.Model
     public class PhisicalLibrary
     {
         public int PhisicalLibraryId { get; set; }
-        
+       
         public string Name { get; set; }
+        public string CompanyName { get; set; }
         public DateTime LoadeDate { get; set; }
     }
 }

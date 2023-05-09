@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FirstEFCoreConsoleApp
 {
+    /// <summary>
+    /// Collation Latin CI AS. Case Insensitive. Accent Sensitive
+    /// </summary>
     public class LibraryContext: DbContext
     {
         //Table Name is DbSet Property Name
@@ -34,14 +37,44 @@ namespace FirstEFCoreConsoleApp
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //var authors = modelBuilder.Entity<Author>();
+            //authors.HasMany(p=>p.Books)
+            //    .WithOne(b=>b.Author)
+            //    .HasPrincipalKey(p => p.Name);
+
+            var authors = modelBuilder.Entity<Author>();
+            authors.Property(p=>p.LoadeDate)
+                .HasDefaultValueSql("getutcdate()");
+            modelBuilder.Entity<Author>();
+            authors.Property(p => p.LastName)
+                .HasDefaultValue("Apellido1");
+
+            modelBuilder.Entity<Author>();
+            authors.Property(p => p.DisplayName)
+                .HasComputedColumnSql("Name + ' ' + LastName", stored:true);
+
             var phisicalLibrary = modelBuilder.Entity<PhisicalLibrary>();
+            phisicalLibrary
+                .HasKey(p => p.PhisicalLibraryId)
+                .HasName("PK_PhisicalLibraries");
+
             phisicalLibrary
                 .Ignore(p=>p.LoadeDate)
                 .Property(p => p.Name).HasColumnName("LibraryName")
+                .IsRequired()
+                .UseCollation("SQL_Latin1_General_CP1_CI_AI")
+                .HasComment("Columna inventada para pruebas")
                 .HasColumnType("nvarchar(200)");
+
+            phisicalLibrary
+                .Property(p => p.CompanyName).HasMaxLength(100);
+
+            phisicalLibrary.HasIndex(p =>p.CompanyName).IsUnique(true);
+
             phisicalLibrary.ToTable("PhisicalLibraries", t =>
                     t.ExcludeFromMigrations()
                         .HasComment("Tabla para almacenar las bibliotecas físicas"));
+
 
             //Create View in Db
             modelBuilder.Entity<RatedBook>()

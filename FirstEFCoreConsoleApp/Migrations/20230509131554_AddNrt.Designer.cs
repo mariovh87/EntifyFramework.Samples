@@ -3,6 +3,7 @@ using System;
 using FirstEFCoreConsoleApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstEFCoreConsoleApp.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20230509131554_AddNrt")]
+    partial class AddNrt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -49,27 +52,10 @@ namespace FirstEFCoreConsoleApp.Migrations
                     b.Property<string>("Biography")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TEXT")
-                        .HasComputedColumnSql("Name + ' ' + LastName", true);
-
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT")
-                        .HasDefaultValue("Apellido1")
-                        .HasComment("Primer apellido en España. Surname en otros paises");
-
-                    b.Property<DateTime>("LoadeDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("getutcdate()");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,10 +63,6 @@ namespace FirstEFCoreConsoleApp.Migrations
                         .HasColumnName("AuthorName");
 
                     b.HasKey("AuthorId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("Name", "LastName");
 
                     b.ToTable("Authors");
                 });
@@ -161,15 +143,9 @@ namespace FirstEFCoreConsoleApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
-                        .HasColumnName("LibraryName")
-                        .HasComment("Columna inventada para pruebas")
-                        .UseCollation("SQL_Latin1_General_CP1_CI_AI");
+                        .HasColumnName("LibraryName");
 
-                    b.HasKey("PhisicalLibraryId")
-                        .HasName("PK_PhisicalLibraries");
-
-                    b.HasIndex("CompanyName")
-                        .IsUnique();
+                    b.HasKey("PhisicalLibraryId");
 
                     b.ToTable("PhisicalLibraries", null, t =>
                         {
@@ -230,17 +206,6 @@ namespace FirstEFCoreConsoleApp.Migrations
                 {
                     b.HasOne("FirstEFCoreConsoleApp.Model.Country", "Country")
                         .WithMany("AuditEntries")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("FirstEFCoreConsoleApp.Model.Author", b =>
-                {
-                    b.HasOne("FirstEFCoreConsoleApp.Model.Country", "Country")
-                        .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
