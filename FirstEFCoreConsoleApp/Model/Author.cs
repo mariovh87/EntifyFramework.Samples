@@ -33,5 +33,8 @@ namespace FirstEFCoreConsoleApp.Model
         /// CountryId hidden column generated in DB
         /// </summary>
         public Country Country { get; set; }
+        public string AuthorUrl { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ContosoPizzaContext>(options =>
 builder.Services.AddDbContextPool<ContosoPizzaContext>(options =>
     options
         .UseLazyLoadingProxies()
+        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         .UseSqlServer(builder.Configuration.GetConnectionString("ContosoPizza")));
 
 

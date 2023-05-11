@@ -19,10 +19,11 @@ namespace FirstEFCoreConsoleApp
         //Rest of tables named as class name
         public DbSet<BookFile> BookFiles { get; set; }
         public DbSet<AuditEntry> AuditEntries { get; set; }
-        public DbSet<Author> Authors { get; set; }
+        public DbSet<Author?> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<PhisicalLibrary> PhisicalLibraries { get; set; }
         public DbSet<ProliphicAuthor> ProliphicAuthors { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public IQueryable<ProliphicAuthor> GetProliphicAuthors(int rows) =>
             FromExpression(() => GetProliphicAuthors(rows));
@@ -43,6 +44,9 @@ namespace FirstEFCoreConsoleApp
             //    .HasPrincipalKey(p => p.Name);
 
             var authors = modelBuilder.Entity<Author>();
+
+            authors.HasQueryFilter(a => !a.IsDeleted);
+
             authors.Property(p=>p.LoadeDate)
                 .HasDefaultValueSql("getutcdate()");
             modelBuilder.Entity<Author>();
@@ -52,6 +56,14 @@ namespace FirstEFCoreConsoleApp
             modelBuilder.Entity<Author>();
             authors.Property(p => p.DisplayName)
                 .HasComputedColumnSql("Name + ' ' + LastName", stored:true);
+
+            //If model has shadow properties, use anonym object
+            //Use for static data that never changes, example, Country table. If is modified or removed, migrations could fail
+            authors.HasData(new[]
+            {
+                new Author { AuthorId = 1, Name = "Stephen", LastName = "King", AuthorUrl = "stephenking" },
+                new Author { AuthorId = 2, Name = "Isaac", LastName = "Asimov", AuthorUrl = "asimov" }
+            });
 
             var phisicalLibrary = modelBuilder.Entity<PhisicalLibrary>();
             phisicalLibrary
